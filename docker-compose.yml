@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  simple_api:
+    container_name: simple_api
+    build:
+      dockerfile: deploy/django.Dockerfile
+    command: python manage.py runserver 0.0.0.0:9000
+    volumes:
+      - .:/app
+    ports:
+      - "9600:9000"
