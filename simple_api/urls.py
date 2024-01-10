@@ -22,6 +22,7 @@ from my_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/recipe', views.SingleRecipeView.as_view(), name='create'),
+    path('api/recipe/<int:pk>', views.SingleRecipeView.as_view(), name='read_update_delete'),
+
     path('api/list', views.RecipesView.as_view(), name='list'),
-    path('api/recipe/<int:pk>', views.SingleRecipeView.as_view(), name='readdeleteupdate'),
 ]

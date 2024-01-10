@@ -13,17 +13,14 @@ class SingleRecipeView(views.APIView):
     """
 
     def get(self, request, pk):
-        try:
-            res = RecipeSerializer(Recipe.objects.get(id=pk)).data
-        except Recipe.DoesNotExist:
-            return views.Response(status=status.HTTP_404_NOT_FOUND)
-        return views.Response(res, status=status.HTTP_200_OK)
+        recipe = Recipe.objects.get(id=pk)
+        return views.Response(RecipeSerializer(recipe).data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        recipe = RecipeSerializer(data=request.POST)
-        if recipe.is_valid():
-            recipe.save()
-            return views.Response(status=status.HTTP_200_OK)
+        recipe_serializer = RecipeSerializer(data=request.POST)
+        if recipe_serializer.is_valid():
+            recipe_serializer.save()
+            return views.Response(recipe_serializer.data, status=status.HTTP_200_OK)
         else:
             return views.Response(status=status.HTTP_400_BAD_REQUEST)
 
